@@ -1,0 +1,115 @@
+experiment:
+  name: pancan_sigformer
+  seed: 42
+  device: cuda
+
+data:
+  input_path: data/raw/PANCAN_project.SBS96.all
+  input_format: sbs96
+  delimiter: "\t"
+  mutation_type_col: MutationType
+  signature_path: data/raw/COSMIC_v3.5_SBS_GRCh38.txt
+  signature_delimiter: "\t"
+  signature_type_col: Type
+  min_total_count: 0
+  train_fraction: 0.8
+  val_fraction: 0.1
+  reference_pool_strategy: all
+  reference_pool_size: 97
+  demographics:
+    enabled: true
+    input_path: data/raw/GDC-PANCAN.TCGA_phenotype.tsv
+    delimiter: "\t"
+    sample_id_col: sample
+    gender_col: demographic.gender
+    race_col: demographic.race
+    patient_barcode_length: 12
+    missing_values: ["", "not reported", "not available", "nan", "none"]
+    race_categories:
+      - american indian or alaska native
+      - asian
+      - black or african american
+      - native hawaiian or other pacific islander
+      - white
+  known_exposures:
+    enabled: false
+    input_path:
+    delimiter: ","
+    sample_id_col: sample_id
+    barcode_length: 16
+  rna:
+    enabled: true
+    input_path: data/raw/GDC-PANCAN.htseq_counts.tsv
+    delimiter: "\t"
+    gene_id_col: Ensembl_ID
+    sample_ids_path:
+    barcode_length: 16
+    log_transform: auto
+    normalization: zscore
+    reduction: pca
+    n_components: 128
+    pca_svd_solver: randomized
+  processed_dir: data/processed
+  processed_prefix: pancan_sigformer_rna_demo_refit
+  overwrite_processed: false
+
+model:
+  architecture: residual_multimodal_transformer
+  d_model: 256
+  num_heads: 8
+  num_sample_layers: 2
+  num_reference_layers: 4
+  ff_multiplier: 4
+  dropout: 0.1
+  demographic_conditioning: adaln
+  latent_token_count: 16
+  num_candidate_embeddings: 4
+  metadata_token_count: 2
+  rna_token_count: 4
+
+training:
+  mode: real_data
+  loss: kl_mse
+  kl_weight: 1.0
+  mse_weight: 1.0
+  residual_weight: 0.25
+  cosine_weight: 0.1
+  batch_size: 64
+  num_workers: 0
+  epochs: 40
+  learning_rate: 0.0003
+  weight_decay: 0.0001
+  grad_clip_norm: 1.0
+  warmup_epochs: 5
+  hold_epochs: 60
+  min_lr_ratio: 0.05
+  composition_weight: 1.0
+  confidence_weight: 1.0
+  confidence_scale: 10.0
+  train_batches_per_epoch: 100
+  val_batches_per_epoch: 20
+  figure_dir: outputs/figures
+  simulation:
+    num_mock_signatures: 500
+    max_mock_cosine_similarity: 0.6
+    min_reference_pool_size: 10
+    max_reference_pool_size: 90
+    min_cosmic_fraction: 0.5
+    mix_alpha_values: [0.1, 1.0, 10.0]
+    noise_alpha_values: [40.0, 120.0, 280.0, 2300.0]
+    depth_ranges:
+      low: [100, 300]
+      medium: [1000, 3000]
+      high: [10000, 30000]
+    max_active_signatures:
+      low: 4
+      medium: 10
+      high: 16
+    norm_frac: 0.25
+  checkpoint_dir: outputs/checkpoints
+  checkpoint_name: best_{timestamp}.pt
+
+inference:
+  checkpoint_path: outputs/checkpoints/best.pt
+  output_path: outputs/predictions/signature_exposures_{timestamp}.csv
+  split: all_splits

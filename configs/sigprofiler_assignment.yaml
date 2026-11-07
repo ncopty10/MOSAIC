@@ -1,0 +1,15 @@
+base_config: default.yaml
+
+experiment:
+  name: pancan_sigprofiler_assignment
+
+sigprofiler_assignment:
+  split: test
+  output_dir: outputs/sigprofiler_assignment/{timestamp}
+  genome_build: GRCh38
+  cosmic_version: 3.5
+  make_plots: false
+  verbose: false
+  export_probabilities: false
+  sample_reconstruction_plots: false
+  cpu: -1

@@ -1,0 +1,15 @@
+base_config: openpedcan_external_matched.yaml
+
+experiment:
+  name: openpedcan_external_matched_60_10_30
+
+data:
+  train_fraction: 0.6
+  val_fraction: 0.1
+  processed_prefix: openpedcan_external_matched_60_10_30
+
+training:
+  checkpoint_name: best_openpedcan_external_matched_60_10_30_{timestamp}.pt
+
+inference:
+  output_path: outputs/predictions/openpedcan_external_matched_60_10_30_signature_exposures_{timestamp}.csv

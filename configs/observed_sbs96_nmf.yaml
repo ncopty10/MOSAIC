@@ -1,0 +1,27 @@
+base_config: default.yaml
+
+experiment:
+  name: pancan_observed_sbs96_nmf
+
+observed_sbs96_nmf:
+  split: val
+  output_dir: outputs/nmf_discovery/observed_sbs96_{timestamp}
+
+nmf_discovery:
+  residual_path:
+  split: val
+  ranks: [1, 2, 3, 4]
+  n_runs: 20
+  bootstrap_rows: false
+  max_iter: 5000
+  init: nndsvda
+  n_jobs: 1
+  min_residual_sum: 0.0
+  signature_path: data/raw/COSMIC_v3.5_SBS_GRCh38.txt
+  signature_delimiter: "\t"
+  signature_type_col: Type
+  novelty_cosine_threshold: 0.85
+  known_like_cosine_threshold: 0.95
+  consensus_cosine_threshold: 0.9
+  top_samples_per_component: 20
+  output_dir: outputs/nmf_discovery/observed_sbs96_{timestamp}

@@ -1,0 +1,14 @@
+base_config: openpedcan_nmf_discovery.yaml
+
+nmf_discovery:
+  residual_path: outputs/predictions/openpedcan_external_matched_tuned_signature_exposures_placeholder_test_residuals.csv
+  output_dir: outputs/nmf_discovery/openpedcan_tuned_{timestamp}
+  refit:
+    checkpoint_path: outputs/checkpoints/best_openpedcan_external_matched_tuned_placeholder.pt
+    min_run_fraction: 0.6
+    min_mean_member_cosine: 0.95
+    distinct_only: true
+    max_cosine_to_cosmic: 0.8
+    max_candidates: 3
+    redundancy_filter: true
+    max_cosine_between_candidates: 0.9

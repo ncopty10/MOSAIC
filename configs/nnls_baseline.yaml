@@ -1,0 +1,9 @@
+base_config: default.yaml
+
+experiment:
+  name: pancan_nnls_baseline
+
+nnls_baseline:
+  split: all_splits
+  reference_pool_strategy: all
+  output_path: outputs/predictions/nnls_signature_exposures_{timestamp}.csv

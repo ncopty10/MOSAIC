@@ -1,0 +1,12 @@
+base_config: nmf_discovery.yaml
+
+nmf_discovery:
+  output_dir: outputs/nmf_discovery/strict_candidates_{timestamp}
+  refit:
+    min_run_fraction: 0.6
+    min_mean_member_cosine: 0.95
+    distinct_only: true
+    max_cosine_to_cosmic: 0.8
+    max_candidates: 3
+    redundancy_filter: true
+    max_cosine_between_candidates: 0.9

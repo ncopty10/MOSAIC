@@ -1,0 +1,16 @@
+base_config: openpedcan_external_matched.yaml
+
+experiment:
+  name: openpedcan_external_matched_tuned
+
+model:
+  dropout: 0.15
+
+training:
+  residual_weight: 0.1
+  cosine_weight: 0.2
+  learning_rate: 0.0001
+  checkpoint_name: best_openpedcan_external_matched_tuned_{timestamp}.pt
+
+inference:
+  output_path: outputs/predictions/openpedcan_external_matched_tuned_signature_exposures_{timestamp}.csv

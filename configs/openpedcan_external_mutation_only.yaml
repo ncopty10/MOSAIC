@@ -1,0 +1,36 @@
+base_config: default.yaml
+
+experiment:
+  name: openpedcan_external_mutation_only
+
+data:
+  input_path: data/raw/openpedcan_pipeline_inputs/openpedcan_external.SBS96.tsv
+  input_format: sbs96
+  delimiter: "\t"
+  mutation_type_col: MutationType
+  signature_path: data/raw/COSMIC_v3.5_SBS_GRCh38.txt
+  signature_delimiter: "\t"
+  signature_type_col: Type
+  min_total_count: 0
+  train_fraction: 0.8
+  val_fraction: 0.1
+  reference_pool_strategy: all
+  reference_pool_size: 97
+  demographics:
+    enabled: false
+  known_exposures:
+    enabled: false
+  rna:
+    enabled: false
+  processed_dir: data/processed
+  processed_prefix: openpedcan_external_mutation_only
+  overwrite_processed: false
+
+training:
+  checkpoint_dir: outputs/checkpoints
+  checkpoint_name: best_openpedcan_external_mutation_only_{timestamp}.pt
+
+inference:
+  checkpoint_path: outputs/checkpoints/best.pt
+  output_path: outputs/predictions/openpedcan_external_mutation_only_signature_exposures_{timestamp}.csv
+  split: all_splits

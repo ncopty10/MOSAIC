@@ -1,0 +1,35 @@
+experiment:
+  seed: 42
+
+nmf_discovery:
+  residual_path: outputs/predictions/signature_exposures_20260430_131024_test_residuals.csv
+  split: val
+  signature_path: data/raw/COSMIC_v3.5_SBS_GRCh38.txt
+  signature_delimiter: "\t"
+  signature_type_col: Type
+  min_residual_sum: 0.01
+  ranks: [1, 2, 3, 4]
+  n_runs: 30
+  bootstrap_rows: true
+  n_jobs: 0
+  max_iter: 5000
+  init: nndsvda
+  consensus_cosine_threshold: 0.9
+  novelty_cosine_threshold: 0.85
+  known_like_cosine_threshold: 0.95
+  top_samples_per_component: 20
+  refit:
+    enabled: true
+    checkpoint_path: outputs/checkpoints/best.pt
+    split: val
+    rank: all_ranks
+    stable_only: true
+    min_run_fraction: 0.5
+    min_mean_member_cosine: 0.9
+    distinct_only: false
+    max_cosine_to_cosmic: 0.85
+    max_candidates: 0
+    redundancy_filter: false
+    max_cosine_between_candidates: 0.95
+    prefer_higher_rank_for_redundancy: true
+  output_dir: outputs/nmf_discovery/{timestamp}

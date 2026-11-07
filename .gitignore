@@ -1,0 +1,99 @@
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+.python-version
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.codex
+.codex/
+.agents/
+
+# Local credentials and machine-specific configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.secrets.*
+
+# Model and data artifacts
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.pkl
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.parquet
+
+# Logs
+*.log
+*.out
+*.err
+logs/
+
+# Outputs
+outputs/**
+!outputs/
+!outputs/.gitkeep
+!outputs/checkpoints/
+!outputs/checkpoints/.gitkeep
+!outputs/logs/
+!outputs/logs/.gitkeep
+!outputs/predictions/
+!outputs/predictions/.gitkeep
+!outputs/figures/
+!outputs/figures/.gitkeep
+
+# Data
+data/raw/**
+data/processed/**
+data/splits/**
+data/synthetic/**
+!data/raw/
+!data/processed/
+!data/splits/
+!data/synthetic/
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/splits/.gitkeep
+!data/synthetic/.gitkeep
+
+# Generated experiment material
+configs/generated/
+configs/seed_sweep*/
+configs/comparisons/comparison_manifest.csv
+configs/domain_baselines/domain_standard_baselines_manifest.csv
+experiments/*/outputs/
+experiments/*/data/
+
+# Cluster / cache
+slurm-*.out
+.cache/
+wandb/
+
+# Local scheduler files
+*.sbatch.out
+*.sbatch.err
+
+# Misc
+*.swp
+*.swo

@@ -1,0 +1,60 @@
+base_config: default.yaml
+
+experiment:
+  name: openpedcan_external_matched
+
+data:
+  input_path: data/raw/openpedcan_pipeline_inputs/openpedcan_external_matched.SBS96.tsv
+  input_format: sbs96
+  delimiter: "\t"
+  mutation_type_col: MutationType
+  signature_path: data/raw/COSMIC_v3.5_SBS_GRCh38.txt
+  signature_delimiter: "\t"
+  signature_type_col: Type
+  min_total_count: 0
+  train_fraction: 0.8
+  val_fraction: 0.1
+  reference_pool_strategy: all
+  reference_pool_size: 97
+  demographics:
+    enabled: true
+    input_path: data/raw/openpedcan_pipeline_inputs/openpedcan_external_demographics.tsv
+    delimiter: "\t"
+    sample_id_col: sample_id
+    gender_col: gender
+    race_col: race
+    patient_barcode_length: 64
+    missing_values: ["", "not reported", "not available", "nan", "none"]
+    race_categories:
+      - american indian or alaska native
+      - asian
+      - black or african american
+      - native hawaiian or other pacific islander
+      - white
+      - not_reported
+  known_exposures:
+    enabled: false
+  rna:
+    enabled: true
+    input_path: data/raw/openpedcan_pipeline_inputs/openpedcan_external_matched_rna.tsv
+    delimiter: "\t"
+    gene_id_col: feature
+    sample_ids_path:
+    barcode_length: 64
+    log_transform: auto
+    normalization: zscore
+    reduction: pca
+    n_components: 128
+    pca_svd_solver: randomized
+  processed_dir: data/processed
+  processed_prefix: openpedcan_external_matched
+  overwrite_processed: false
+
+training:
+  checkpoint_dir: outputs/checkpoints
+  checkpoint_name: best_openpedcan_external_matched_{timestamp}.pt
+
+inference:
+  checkpoint_path: outputs/checkpoints/best.pt
+  output_path: outputs/predictions/openpedcan_external_matched_signature_exposures_{timestamp}.csv
+  split: all_splits

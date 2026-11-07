@@ -1,0 +1,21 @@
+base_config: default.yaml
+
+experiment:
+  name: pancan_tree_baseline_sbs96_only
+
+data:
+  processed_prefix: pancan_tree_baseline_sbs96_only
+  rna:
+    enabled: false
+  demographics:
+    enabled: false
+
+tree_baseline:
+  split: all_splits
+  include_rna: false
+  include_demographics: false
+  n_estimators: 300
+  max_depth:
+  min_samples_leaf: 1
+  n_jobs: -1
+  output_path: outputs/predictions/tree_baseline_sbs96_only_signature_exposures_{timestamp}.csv

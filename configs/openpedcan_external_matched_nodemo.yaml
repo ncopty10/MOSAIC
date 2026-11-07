@@ -1,0 +1,15 @@
+base_config: openpedcan_external_matched.yaml
+
+experiment:
+  name: openpedcan_external_matched_nodemo
+
+data:
+  demographics:
+    enabled: false
+  processed_prefix: openpedcan_external_matched_nodemo
+
+training:
+  checkpoint_name: best_openpedcan_external_matched_nodemo_{timestamp}.pt
+
+inference:
+  output_path: outputs/predictions/openpedcan_external_matched_nodemo_signature_exposures_{timestamp}.csv

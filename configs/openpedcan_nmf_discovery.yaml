@@ -1,0 +1,8 @@
+base_config: nmf_discovery.yaml
+
+nmf_discovery:
+  residual_path: outputs/predictions/openpedcan_external_matched_nodemo_signature_exposures_placeholder_test_residuals.csv
+  signature_path: data/raw/COSMIC_v3.5_SBS_GRCh38.txt
+  output_dir: outputs/nmf_discovery/openpedcan_{timestamp}
+  refit:
+    checkpoint_path: outputs/checkpoints/best_openpedcan_external_matched_nodemo_placeholder.pt

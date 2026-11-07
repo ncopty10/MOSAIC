@@ -1,0 +1,8 @@
+base_config: nnls_baseline.yaml
+
+experiment:
+  name: pancan_nnls_residual_discovery
+
+nnls_residual_discovery:
+  split: val
+  output_dir: outputs/nmf_discovery/nnls_residuals_{timestamp}
